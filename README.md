@@ -1,0 +1,1 @@
+My project is created with React JS. It allows users to login as Guest and Admin. Guest can see the Listed book, search a book and find info about the books, whereas the admin can see the listed books, add, edit and delete book, add genre.
