@@ -83,10 +83,12 @@ const Category = () => {
                     top: '50%', 
                     left: '50%', 
                     transform: 'translate(-50%, -50%)', 
-                    backgroundColor: 'white', 
+                    backgroundColor: 'rgba(var(--bs-danger-rgb),var(--bs-bg-opacity))', 
                     padding: '20px', 
                     zIndex: 1000,
-                    border: '1px solid black'
+                    border: '1px solid black',
+                    borderRadius: '10px',
+                    color: 'white'
                 }}>
                     <h3>Edit Genre</h3>
                     <input 
@@ -95,8 +97,52 @@ const Category = () => {
                         onChange={(e) => setEditGenre({...editGenre, genreName: e.target.value})} 
                     />
                     <div>
-                        <button onClick={saveEditedGenre}>Save</button>
-                        <button onClick={cancelEdit}>Cancel</button>
+                    <button
+                        style={{
+                            backgroundColor: 'white',
+                            color: 'rgba(var(--bs-danger-rgb),var(--bs-bg-opacity))',
+                            border: '1px solid white',
+                            padding: '5px 10px',
+                            marginRight: '10px',
+                            borderRadius: '5px', // You can adjust the radius value
+                            cursor: 'pointer',
+                            transition: 'background-color 0.3s, color 0.3s',
+                        }}
+                        onClick={saveEditedGenre}
+                        onMouseOver={(e) => {
+                            e.target.style.backgroundColor = 'rgba(var(--bs-danger-rgb),var(--bs-bg-opacity))';
+                            e.target.style.color = 'white';
+                        }}
+                        onMouseOut={(e) => {
+                            e.target.style.backgroundColor = 'white';
+                            e.target.style.color = 'rgba(var(--bs-danger-rgb),var(--bs-bg-opacity))';
+                        }}
+                        >
+                        Save
+                        </button>
+                        <button
+                            style={{
+                                backgroundColor: 'white',
+                                color: 'rgba(var(--bs-danger-rgb),var(--bs-bg-opacity))',
+                                border: '1px solid white',
+                                padding: '5px 10px',
+                                marginTop: '5px',
+                                borderRadius: '5px', // You can adjust the radius value
+                                cursor: 'pointer',
+                                transition: 'background-color 0.3s, color 0.3s',
+                            }}
+                            onClick={cancelEdit}
+                            onMouseOver={(e) => {
+                                e.target.style.backgroundColor = 'rgba(var(--bs-danger-rgb),var(--bs-bg-opacity))';
+                                e.target.style.color = 'white';
+                            }}
+                            onMouseOut={(e) => {
+                                e.target.style.backgroundColor = 'white';
+                                e.target.style.color = 'rgba(var(--bs-danger-rgb),var(--bs-bg-opacity))';
+                            }}
+                            >
+                            Cancel
+                            </button>
                     </div>
                 </div>
             )}

@@ -75,7 +75,7 @@ const Dashboard = () => {
         </div>
         <div className="col p-0 m-0">
           <div className="p-2 d-flex justify-content-center shadow mb-3 bg-danger text-white">
-            <h1 className="display-4 text-center text-white">Welcome to My Book Store</h1>
+            <h1 className="display-1 text-center text-white">Welcome to My Book Store</h1>
           </div>
           <div className="p-4 shadow bg-light rounded">
             <Outlet />
