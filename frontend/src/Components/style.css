@@ -19,7 +19,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center
+  justify-content: center;
 }
 
 .loginForm input {
@@ -43,8 +43,17 @@
 
 .loginForm button:hover {
   background-color: #0a74da;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
 }
 
 ul li:hover {
-  background-color: #eeeeee;
+  background-color: #ee7676;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+ul li {
+  transition: background-color 0.3s ease-in-out;
+  border-radius: 10px;
 }
