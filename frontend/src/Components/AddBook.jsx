@@ -11,7 +11,8 @@ const AddBook = () => {
     price: "",
   });
   const [genre, setGenre] = useState([]);
-  const navigate = useNavigate()
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -26,11 +27,14 @@ const AddBook = () => {
       .catch((err) => console.log(err));
   }, []);
 
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
+    const specialCharsRegex = /[!@#$%^&*(),.?":{}|<>]/;
+    if (specialCharsRegex.test(book.name) || specialCharsRegex.test(book.author)) {
+      setError('No special characters allowed in Name or Author.');
+      return;
+    }
 
     axios
       .post("http://localhost:3000/auth/add_book", {
@@ -44,13 +48,11 @@ const AddBook = () => {
         if (result.data.Status) {
           navigate("/dashboard/book");
         } else {
-          alert(result.data.Error);
+          setError(result.data.Error);
         }
       })
       .catch((err) => console.log(err));
   };
-  
-
 
   return (
     <div className="d-flex justify-content-center align-items-center mt-3">
@@ -58,7 +60,7 @@ const AddBook = () => {
         <h3 className="text-center text-dark">Add Book</h3>
         <form className="row g-1" onSubmit={handleSubmit}>
           <div className="col-12">
-            <label for="inputName" className="form-label">
+            <label htmlFor="inputName" className="form-label">
               Name
             </label>
             <input
@@ -66,13 +68,11 @@ const AddBook = () => {
               className="form-control rounded-0"
               id="inputName"
               placeholder="Enter book name"
-              onChange={(e) =>
-                setBook({ ...book, name: e.target.value })
-              }
+              onChange={(e) => setBook({ ...book, name: e.target.value })}
             />
           </div>
           <div className="col-12">
-            <label for="inputAuthor" className="form-label">
+            <label htmlFor="inputAuthor" className="form-label">
               Author
             </label>
             <input
@@ -81,14 +81,12 @@ const AddBook = () => {
               id="inputAuthor"
               placeholder="Enter author name"
               autoComplete="off"
-              onChange={(e) =>
-                setBook({ ...book, author: e.target.value })
-              }
+              onChange={(e) => setBook({ ...book, author: e.target.value })}
             />
           </div>
 
           <div className="col-12">
-            <label for="genre" className="form-label">
+            <label htmlFor="genre" className="form-label">
               Genre
             </label>
             <select
@@ -109,12 +107,10 @@ const AddBook = () => {
                 </option>
               ))}
             </select>
-
           </div>
 
-
           <div className="col-12">
-            <label for="inputYear" className="form-label">
+            <label htmlFor="inputYear" className="form-label">
               Year
             </label>
             <input
@@ -123,14 +119,12 @@ const AddBook = () => {
               id="inputYear"
               placeholder="2023"
               autoComplete="off"
-              onChange={(e) =>
-                setBook({ ...book, year: e.target.value })
-              }
+              onChange={(e) => setBook({ ...book, year: e.target.value })}
             />
           </div>
 
           <div className="col-12">
-            <label for="inputPrice" className="form-label">
+            <label htmlFor="inputPrice" className="form-label">
               Price
             </label>
             <input
@@ -139,18 +133,17 @@ const AddBook = () => {
               id="inputPrice"
               placeholder="10$"
               autoComplete="off"
-              onChange={(e) =>
-                setBook({ ...book, price: e.target.value })
-              }
+              onChange={(e) => setBook({ ...book, price: e.target.value })}
             />
           </div>
-     
+
           <div className="col-12">
-          <button type="submit" className="btn btn-success w-100">
+            <button type="submit" className="btn btn-success w-100">
               Add Book
             </button>
           </div>
         </form>
+        {error && <div style={{ color: 'red' }}>{error}</div>}
       </div>
     </div>
   );

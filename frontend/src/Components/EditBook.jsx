@@ -1,18 +1,19 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const EditBook = () => {
-  const { id } = useParams()
+  const { id } = useParams();
   const [book, setBook] = useState({
-    name: "",
-    author: "",
-    genre_id: "",
-    year: "",
-    price: "",
+    name: '',
+    author: '',
+    genre_id: '',
+    year: '',
+    price: '',
   });
-  const [genre, setGenre] = useState([])
-  const navigate = useNavigate()
+  const [genre, setGenre] = useState([]);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get('http://localhost:3000/auth/genre')
@@ -20,9 +21,9 @@ const EditBook = () => {
         if (result.data.Status) {
           setGenre(result.data.Result);
         } else {
-          alert(result.data.Error)
+          alert(result.data.Error);
         }
-      }).catch(err => console.log(err))
+      }).catch(err => console.log(err));
 
     axios.get('http://localhost:3000/auth/book/' + id)
       .then(result => {
@@ -33,22 +34,32 @@ const EditBook = () => {
           genre_id: result.data.Result[0].genre_id,
           year: result.data.Result[0].year,
           price: result.data.Result[0].price,
-
-        })
-      }).catch(err => console.log(err))
-  }, [])
+        });
+      }).catch(err => console.log(err));
+  }, []);
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+
+    const specialCharsRegex = /[!@#$%^&*(),.?":{}|<>]/;
+    if (
+      specialCharsRegex.test(book.name) ||
+      specialCharsRegex.test(book.author) ||
+      specialCharsRegex.test(book.price)
+    ) {
+      setError('No special characters allowed in fields.');
+      return;
+    }
+
     axios.put('http://localhost:3000/auth/edit_book/' + id, book)
       .then(result => {
         if (result.data.Status) {
-          navigate('/dashboard/book')
+          navigate('/dashboard/book');
         } else {
-          alert(result.data.Error)
+          setError(result.data.Error);
         }
-      }).catch(err => console.log(err))
-  }
+      }).catch(err => console.log(err));
+  };
 
   return (
     <div className="d-flex justify-content-center align-items-center mt-3">
@@ -69,9 +80,9 @@ const EditBook = () => {
                 setBook({ ...book, name: e.target.value })
               }
             />
-          </div>
+          </div>  
           <div className="col-12">
-            <label for="inputAuthor" className="form-label">
+            <label htmlFor="inputAuthor" className="form-label">
               Author
             </label>
             <input
@@ -82,7 +93,7 @@ const EditBook = () => {
               autoComplete="off"
               value={book.author}
               onChange={(e) =>
-                setBook({ ...book, book: e.target.value })
+                setBook({ ...book, author: e.target.value })
               }
             />
           </div>
@@ -140,9 +151,10 @@ const EditBook = () => {
             </button>
           </div>
         </form>
+        {error && <div style={{ color: 'red' }}>{error}</div>}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default EditBook
+export default EditBook;
