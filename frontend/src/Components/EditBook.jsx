@@ -69,6 +69,11 @@ const EditBook = () => {
       return;
     }
 
+    if (!book.name || !book.author || book.genre_id === "" || !book.year || !book.price) {
+      setError("Please fill in all the fields.");
+      return;
+    }
+
     axios.put('http://localhost:3000/auth/edit_book/' + id, book)
       .then(result => {
         if (result.data.Status) {

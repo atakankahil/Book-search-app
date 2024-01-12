@@ -10,6 +10,7 @@ const AddBook = () => {
     year: "",
     price: "",
   });
+  
   const [genre, setGenre] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -49,6 +50,11 @@ const AddBook = () => {
     const currentYear = new Date().getFullYear();
     if (parseInt(book.year) > currentYear) {
       setError("Year cannot be more than the current year.");
+      return;
+    }
+
+    if (!book.name || !book.author || book.genre_id === "" || !book.year || !book.price) {
+      setError("Please fill in all the fields.");
       return;
     }
 
