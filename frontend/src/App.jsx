@@ -5,7 +5,7 @@ import {BrowserRouter, Routes, Route, useNavigate} from 'react-router-dom'
 import Dashboard from './Components/Dashboard'
 import Home from './Components/Home'
 import Book from './Components/Book'
-import Category from './Components/Category'
+import EditGenre from './Components/EditGenre'
 import AddGenre from './Components/AddGenre'
 import AddBook from './Components/AddBook'
 import EditBook from './Components/EditBook'
@@ -33,7 +33,7 @@ function App() {
       }>
         <Route path='' element={<Home />}></Route>
         <Route path='/dashboard/book' element={<Book />}></Route>
-        <Route path='/dashboard/genre' element={<Category />}></Route>
+        <Route path='/dashboard/genre' element={<EditGenre />}></Route>
         <Route path='/dashboard/add_genre' element={<AddGenre />}></Route>
         <Route path='/dashboard/add_book' element={<AddBook />}></Route>
         <Route path='/dashboard/edit_book/:id' element={<EditBook />}></Route>

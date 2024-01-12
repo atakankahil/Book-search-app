@@ -36,6 +36,22 @@ const AddBook = () => {
       return;
     }
 
+    if (parseFloat(book.price) < 0) {
+      setError("Price cannot be negative.");
+      return;
+    }
+
+    if (parseInt(book.year) < 0) {
+      setError("Year cannot be negative.");
+      return;
+    }
+
+    const currentYear = new Date().getFullYear();
+    if (parseInt(book.year) > currentYear) {
+      setError("Year cannot be more than the current year.");
+      return;
+    }
+
     axios
       .post("http://localhost:3000/auth/add_book", {
         name: book.name,

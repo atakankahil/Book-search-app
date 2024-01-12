@@ -23,7 +23,8 @@ const EditBook = () => {
         } else {
           alert(result.data.Error);
         }
-      }).catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
 
     axios.get('http://localhost:3000/auth/book/' + id)
       .then(result => {
@@ -35,7 +36,8 @@ const EditBook = () => {
           year: result.data.Result[0].year,
           price: result.data.Result[0].price,
         });
-      }).catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
   }, []);
 
   const handleSubmit = (e) => {
@@ -51,6 +53,22 @@ const EditBook = () => {
       return;
     }
 
+    if (parseFloat(book.price) < 0) {
+      setError('Price cannot be negative.');
+      return;
+    }
+
+    if (parseInt(book.year) < 0) {
+      setError('Year cannot be negative.');
+      return;
+    }
+
+    const currentYear = new Date().getFullYear();
+    if (parseInt(book.year) > currentYear) {
+      setError("Year cannot be more than the current year.");
+      return;
+    }
+
     axios.put('http://localhost:3000/auth/edit_book/' + id, book)
       .then(result => {
         if (result.data.Status) {
@@ -58,7 +76,8 @@ const EditBook = () => {
         } else {
           setError(result.data.Error);
         }
-      }).catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
   };
 
   return (
@@ -136,7 +155,7 @@ const EditBook = () => {
               type="number"
               className="form-control rounded-0"
               id="inputPrice"
-              placeholder="Enter Year"
+              placeholder="Enter Price"
               autoComplete="off"
               value={book.price}
               onChange={(e) =>
