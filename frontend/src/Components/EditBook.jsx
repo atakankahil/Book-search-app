@@ -43,7 +43,7 @@ const EditBook = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const specialCharsRegex = /[!@#$%^&*(),.?":{}|<>]/;
+    const specialCharsRegex = /[!@#$%^&*(),?":{}|<>]/;
     if (
       specialCharsRegex.test(book.name) ||
       specialCharsRegex.test(book.author) ||

@@ -31,7 +31,7 @@ const AddBook = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const specialCharsRegex = /[!@#$%^&*(),.?":{}|<>]/;
+    const specialCharsRegex = /[!@#$%^&*(),?":{}|<>]/;
     if (specialCharsRegex.test(book.name) || specialCharsRegex.test(book.author)) {
       setError('No special characters allowed in Name or Author.');
       return;
@@ -149,14 +149,18 @@ const AddBook = () => {
             <label htmlFor="inputPrice" className="form-label">
               Price
             </label>
-            <input
-              type="number"
-              className="form-control rounded-0"
-              id="inputPrice"
-              placeholder="10$"
-              autoComplete="off"
-              onChange={(e) => setBook({ ...book, price: e.target.value })}
-            />
+            <div className="input-group">
+              <span className="input-group-text" id="price-addon">$</span>
+              <input
+                type="number"
+                className="form-control rounded-0"
+                id="inputPrice"
+                placeholder="10"
+                autoComplete="off"
+                onChange={(e) => setBook({ ...book, price: e.target.value })}
+                aria-describedby="price-addon"
+              />
+            </div>
           </div>
 
           <div className="col-12">
