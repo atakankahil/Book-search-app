@@ -61,11 +61,9 @@ const Dashboard = () => {
                   <span className="ms-2 d-none d-sm-inline">Book Genre</span>
                 </Link>
               </li>
-  
+
               <li className="w-100" onClick={handleLogout}>
-                <Link
-                  className="nav-link px-0 align-middle text-white"
-                >
+                <Link className="nav-link px-0 align-middle text-white">
                   <i className="fs-4 bi-power ms-2"></i>
                   <span className="ms-2 d-none d-sm-inline">Logout</span>
                 </Link>
@@ -75,7 +73,12 @@ const Dashboard = () => {
         </div>
         <div className="col p-0 m-0">
           <div className="p-2 d-flex justify-content-center shadow mb-3 bg-danger text-white">
-            <h1 className="display-1 text-center text-white">Welcome to My Book Store</h1>
+            <h1
+              className="display-1 text-center text-white"
+              style={{ fontFamily: 'Montserrat', fontWeight: 'bold' }}
+            >
+              Welcome to My Book Store
+            </h1>
           </div>
           <div className="p-4 shadow bg-light rounded">
             <Outlet />
