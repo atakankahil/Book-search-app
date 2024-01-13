@@ -77,11 +77,16 @@ const Home = () => {
   };
 
   const fetchSearchedBooks = async () => {
-    const url = `http://localhost:3000/auth/search_books${searchQuery ? `?search=${searchQuery}` : ''}`;
+    const url = `http://localhost:3000/auth/search_books${searchQuery ? `?search=${encodeURIComponent(searchQuery)}` : ''}`;
     try {
       const response = await axios.get(url);
       if (response.data.Status) {
-        setBooks(response.data.Result);
+        const filteredBooks = response.data.Result.filter(book =>
+          book.name.toLowerCase() === searchQuery.toLowerCase() ||
+          book.genreName.toLowerCase() === searchQuery.toLowerCase() ||
+          book.author.toLowerCase() === searchQuery.toLowerCase()
+        );
+        setBooks(filteredBooks);
       } else {
         setError(response.data.Error);
       }
@@ -110,15 +115,15 @@ const Home = () => {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Search books..."
+                  placeholder="Search for books by name, author, or genre..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
-                <button className="btn btn-outline-secondary" type="button" onClick={handleSearch}>
-                  <i className="bi bi-search"></i>
+                <button className="btn btn-primary" type="button" onClick={handleSearch}>
+                  <i className="bi bi-search"></i> Search
                 </button>
-                <button className="btn btn-outline-secondary" type="button" onClick={handleClearSearch}>
-                  <i className="bi bi-x"></i>
+                <button className="btn btn-secondary" type="button" onClick={handleClearSearch}>
+                  <i className="bi bi-x"></i> Clear
                 </button>
               </div>
               <BookTable books={books} />
