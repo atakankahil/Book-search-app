@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const BookTable = ({ books }) => (
-  <table className="table w-100">
-    <thead>
+  <table className="table table-hover">
+    <thead className="thead-dark">
       <tr>
-        <th>Name</th>
-        <th>Author</th>
-        <th>Genre</th>
-        <th>Year</th>
-        <th>Price</th>
+        <th scope="col">Name</th>
+        <th scope="col">Author</th>
+        <th scope="col">Genre</th>
+        <th scope="col">Year</th>
+        <th scope="col">Price</th>
       </tr>
     </thead>
     <tbody>
@@ -27,7 +27,7 @@ const BookTable = ({ books }) => (
 );
 
 const BookSummary = ({ bookTotal }) => (
-  <div className="px-3 pt-2 pb-3 border shadow-sm w-25">
+  <div className="px-3 pt-2 pb-3 border shadow-sm bg-light">
     <div className="text-center pb-1">
       <h4>Book</h4>
     </div>
@@ -105,12 +105,14 @@ const Home = () => {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row flex-nowrap">
-        <div className="col p-0 m-0">
-          <div className="p-3 d-flex justify-content-around mt-3">
-            <div className="mt-4 px-5 pt-3 w-100">
-              <h3>List of Books</h3>
+    <div className="container-fluid mt-3">
+      <div className="row">
+        <div className="col-md-8">
+          <div className="card">
+            <div className="card-header">
+              <h3 className="card-title">List of Books</h3>
+            </div>
+            <div className="card-body">
               <div className="input-group mb-3">
                 <input
                   type="text"
@@ -128,8 +130,10 @@ const Home = () => {
               </div>
               <BookTable books={books} />
             </div>
-            <BookSummary bookTotal={bookTotal} />
           </div>
+        </div>
+        <div className="col-md-4">
+          <BookSummary bookTotal={bookTotal} />
         </div>
       </div>
     </div>
