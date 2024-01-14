@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { BsAppIndicator } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
+import * as api from '../services/api'
 
 const EditGenre = () => {
   const [genre, setGenre] = useState([]);
@@ -13,7 +15,7 @@ const EditGenre = () => {
   }, []);
 
   const fetchGenres = () => {
-    axios.get('http://localhost:3000/auth/genre')
+    api.getGenre()
       .then(result => {
         if (result.data.Status) {
           setGenre(result.data.Result);
@@ -35,7 +37,7 @@ const EditGenre = () => {
       return;
     }
 
-    axios.put(`http://localhost:3000/auth/edit_genre/${editGenre.id}`, { name: editGenre.genreName })
+    api.editPutGenreQuery(editGenre.id, editGenre.genreName)
       .then(response => {
         setShowEditDialog(false);
         fetchGenres();

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './style.css'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import * as api from '../services/api'
 
 const Login = () => {
     const [values, setValues] = useState({
@@ -16,7 +17,7 @@ const Login = () => {
       event.preventDefault();
   
       try {
-        const response = await axios.post('http://localhost:3000/auth/ownerlogin', values);
+        const response = await api.ownerLogin(values);
   
         if (response.data.loginStatus) {
           localStorage.setItem('valid', true);

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import * as api from '../services/api'
 
 const BookTable = ({ books }) => (
   <table className="table table-hover">
@@ -52,7 +53,7 @@ const Home = () => {
 
   const fetchBookCount = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/auth/book_count');
+      const response = await api.BookCount()
       if (response.data.Status) {
         setBookTotal(response.data.Result[0].book);
       } else {
@@ -65,7 +66,7 @@ const Home = () => {
 
   const fetchAllBooks = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/auth/book');
+      const response = await api.getBook();
       if (response.data.Status) {
         setBooks(response.data.Result);
       } else {
@@ -77,9 +78,9 @@ const Home = () => {
   };
 
   const fetchSearchedBooks = async () => {
-    const url = `http://localhost:3000/auth/search_books${searchQuery ? `?search=${encodeURIComponent(searchQuery)}` : ''}`;
     try {
-      const response = await axios.get(url);
+
+      const response = await api.searchBooksByQuery(searchQuery);
       if (response.data.Status) {
         const filteredBooks = response.data.Result.filter(book =>
           book.name.toLowerCase() === searchQuery.toLowerCase() ||

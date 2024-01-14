@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import * as api from '../services/api'
 
 const AddGenre = () => {
   const [genreName, setGenreName] = useState('');
@@ -16,7 +17,7 @@ const AddGenre = () => {
       return;
     }
 
-    axios.post('http://localhost:3000/auth/add_genre', { genreName })
+    api.addGenre({genreName})
       .then(result => {
         if (result.data.Status) {
           navigate('/dashboard/genre');

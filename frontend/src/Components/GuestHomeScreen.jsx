@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { BsArrowLeft } from 'react-icons/bs';
+import * as api from '../services/api'
 
 const GuestHomeScreen = () => {
   const [books, setBooks] = useState([]);
@@ -12,7 +13,7 @@ const GuestHomeScreen = () => {
   }, []);
 
   const fetchAllBooks = () => {
-    axios.get('http://localhost:3000/auth/book')
+    api.getBook()
       .then(result => {
         if (result.data.Status) {
           setBooks(result.data.Result);

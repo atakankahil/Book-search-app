@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import * as api from '../services/api'
 
 const EditBook = () => {
   const { id } = useParams();
@@ -16,7 +17,7 @@ const EditBook = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:3000/auth/genre')
+    api.getGenre()
       .then(result => {
         if (result.data.Status) {
           setGenre(result.data.Result);
@@ -26,7 +27,8 @@ const EditBook = () => {
       })
       .catch(err => console.log(err));
 
-    axios.get('http://localhost:3000/auth/book/' + id)
+  
+    api.editGetBookDetail(id)
       .then(result => {
         setBook({
           ...book,
@@ -74,7 +76,8 @@ const EditBook = () => {
       return;
     }
 
-    axios.put('http://localhost:3000/auth/edit_book/' + id, book)
+  
+    api.editPutBookDetail(id,book)
       .then(result => {
         if (result.data.Status) {
           navigate('/dashboard/book');

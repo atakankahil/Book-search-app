@@ -1,14 +1,14 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-
+import * as api from '../services/api'
 
 const BookDetail = () => {
     const [book, setBook] = useState([])
     const {id} = useParams()
     const navigate = useNavigate()
     useEffect(() => {
-        axios.get('http://localhost:3000/book/detail/'+id)
+        api.getBookDetail(id)
         .then(result => {
             setBook(result.data[0])
         })

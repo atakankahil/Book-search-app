@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import * as api from "../services/api"
 
 const AddBook = () => {
   const [book, setBook] = useState({
@@ -16,8 +17,7 @@ const AddBook = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/auth/genre")
+    api.getGenre()
       .then((result) => {
         if (result.data.Status) {
           setGenre(result.data.Result);
@@ -58,8 +58,8 @@ const AddBook = () => {
       return;
     }
 
-    axios
-      .post("http://localhost:3000/auth/add_book", {
+  
+   api.postBook({
         name: book.name,
         author: book.author,
         genre_id: book.genre_id,

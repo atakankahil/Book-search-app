@@ -1,14 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import * as api from "../services/api"
 
 const Book = () => {
   const [book, setBook] = useState([]);
   const navigate = useNavigate()
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/auth/book")
+      api.getBook()
       .then((result) => {
         if (result.data.Status) {
           setBook(result.data.Result);
@@ -19,7 +19,7 @@ const Book = () => {
       .catch((err) => console.log(err));
   }, []);
   const handleDelete = (id) => {
-    axios.delete('http://localhost:3000/auth/delete_book/'+id)
+    api.deleteBook(id)
     .then(result => {
         if(result.data.Status) {
             window.location.reload()
