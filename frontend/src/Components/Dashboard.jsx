@@ -71,6 +71,9 @@ const Dashboard = () => {
               </li>
             </ul>
           </div>
+          <div className="text-center mt-3">
+            <p>© 2024 Atakan Kahil</p>
+          </div>
         </div>
         <div className="col p-0 m-0">
           <div className="p-2 d-flex justify-content-center shadow mb-3 bg-danger text-white">
